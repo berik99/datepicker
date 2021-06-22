@@ -14,7 +14,7 @@ Additionally ths component allows you to simplify graphic design of your website
 ## Getting Started
     
 #### Installation 
-Download the latest <a href="www.google.it">release</a> and reference in your project datepicker.min.js and datepicker.min.css or use one of the boilerplate inside the dist folder.
+Download the latest <a href="releases/">release</a> and reference in your project datepicker.min.js and datepicker.min.css or use one of the boilerplate inside the dist folder.
 
 
 #### Build 
@@ -123,4 +123,4 @@ As default datepicker will be applied only on html text inputs with css class "d
     ```
 ## License
 
-Copyright 2021 Erik Barale, Licensed under <a href="LICENSE.txt">MIT License</a>
+Copyright 2021 Erik Barale, Licensed under <a href="/dist/LICENSE">MIT License</a>
