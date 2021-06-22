@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="datepicker.min.css">
+    <style>
+        body {
+            font-family: arial;
+        }
+
+        span {
+            background-color: yellow;
+        }
+    </style>
+    <title>datepicker example</title>
+</head>
+
+<body>
+    <form>
+        <h2>To display put 'datepicker' class in your input[text] element. Other type of input won't work</h2>
+        <h2>Reference in your project minified files (<span>datepicker.min.js</span> and
+            <span>datepicker.min.css</span>)
+        </h2>
+        <div class="form-group">
+            <label for="testDatepicker">Custom datepicker</label>
+            <input type="text" class="form-control datepicker" id="testDatepicker">
+        </div>
+        <br><br><br><br><br>
+        <div class="form-group">
+            <label for="defaultDatepicker">Default datepicker</label>
+            <input type="date" class="form-control" id="defaultDatepicker">
+        </div>
+    </form>
+
+    <script src="datepicker.min.js"></script>
+    <script>
+        var htmlDatepicker = new Datepicker();
+        htmlDatepicker.init();
+    </script>
+</body>
+
+</html>

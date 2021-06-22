@@ -1,0 +1,35 @@
+{
+  "name": "datepicker",
+  "version": "0.1.0",
+  "description": "Alternative customizable web component used to pick a date in a form input",
+  "main": "example.html",
+  "scripts": {
+    "build": "babel src/*.js -d dist --presets=@babel/env"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/berik99/datepicker.git"
+  },
+  "keywords": [
+    "datepicker",
+    "date",
+    "form",
+    "input",
+    "custom-element",
+    "html5"
+  ],
+  "author": "Erik Barale",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/berik99/datepicker/issues"
+  },
+  "homepage": "https://github.com/berik99/datepicker#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.14.5",
+    "@babel/core": "^7.14.6",
+    "@babel/preset-env": "^7.14.5"
+  },
+  "dependencies": {
+    "core-js": "^3.15.0"
+  }
+}
