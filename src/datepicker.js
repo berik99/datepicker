@@ -471,7 +471,7 @@ class Datepicker {
      * @param {number} year - 4 digit year number
      * @public
      */
-    setSelectedDate(month, year) {
+    setDefaultDate(month, year) {
         if (this.initialized)
             throw "Can't apply settings after initialization";
         if (typeof (year) != "number" && typeof (month) != "number")
@@ -490,7 +490,7 @@ class Datepicker {
      * @param {string} cssClass - The css class  
      * @public
      */
-    setClassToApply(cssClass) {
+    setCssClass(cssClass) {
         this.classToApply = cssClass;
     }
 
