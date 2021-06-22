@@ -14,7 +14,7 @@ Additionally ths component allows you to simplify graphic design of your website
 ## Getting Started
     
 #### Installation 
-Download the latest <a href="releases/">release</a> and reference in your project datepicker.min.js and datepicker.min.css or use one of the boilerplate inside the dist folder.
+Download the latest <a href="https://github.com/berik99/datepicker/releases/">release</a> and reference in your project datepicker.min.js and datepicker.min.css or use one of the boilerplate inside the dist folder.
 
 
 #### Build 
