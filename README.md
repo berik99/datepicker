@@ -121,6 +121,18 @@ As default datepicker will be applied only on html text inputs with css class "d
     datepicker.setDefaultDate(11, 2009) //Set november 2009 as default date 
     datepicker.init();
     ```
+
+## Supported browser
+#### *tested*
+* Chromium 91
+* Edge Chromium
+* Firefox 89
+* Internet explorer 10
+* Internet explorer 11
+#### *not tested*
+* Edge (old version)
+* Safari
+* Opera
 ## License
 
 Copyright 2021 Erik Barale, Licensed under <a href="/dist/LICENSE">MIT License</a>
