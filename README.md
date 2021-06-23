@@ -123,12 +123,13 @@ As default datepicker will be applied only on html text inputs with css class "d
     ```
 
 ## Supported browser
-#### *tested*
-* Chromium 91
-* Edge Chromium
-* Firefox 89
-* Internet explorer 10
-* Internet explorer 11
+#### *full support*
+* Chromium >= 91
+* Firefox >= 89
+#### *partial support*
+* Chromium >= 48
+* Firefox >= 52
+* Internet explorer >= 10
 #### *not tested*
 * Edge (old version)
 * Safari
