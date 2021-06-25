@@ -14,13 +14,13 @@ Additionally ths component allows you to simplify graphic design of your website
 ## Getting Started
     
 #### Installation 
-Download the latest <a href="https://github.com/berik99/datepicker/releases/">release</a> and reference in your project datepicker.min.js and datepicker.min.css or use one of the boilerplate inside the dist folder.
-
+Download the latest <a href="https://github.com/berik99/datepicker/releases/">release</a>, inside the dist folder there are javascript (datepicker.min.js) and css (datepicker.min.css) files to reference  in your project.
+There also four boilerplate for valilla html, bootstrap 3, 4 and 5;
 
 #### Build 
-If you want to build your version download the source code you need NodeJS and NPM. if you don't have them, you can download from <a href="https://nodejs.org/en/">NodeJS official page</a>.
+To build  from source code you need NodeJS and NPM. if you don't have them, you can download them from <a href="https://nodejs.org/en/">NodeJS official page</a>.
 Now open a terminal, move into project root and type `npm install` to download the necessary packages.
-Then type `npm run build` to transpile javascript code into IE10-compatible with <a href="https://babeljs.io/">babelJS</a>.
+Then type `npm run build` to transpile javascript code with <a href="https://babeljs.io/">babelJS</a>.
 Afther that, the use of a minifier is recommended, but not strictly necessary.
 If you are using vscode you can use <a href="https://marketplace.visualstudio.com/items?itemName=olback.es6-css-minify">this</a> minifier extension.
 
@@ -124,11 +124,10 @@ As default datepicker will be applied only on html text inputs with css class "d
 
 ## Supported browser
 #### *full support*
-* Chromium >= 91
+* Chromium >= 62
 * Firefox >= 52.9
-* Safari 
+* Safari >= 10
 #### *partial support*
-* Chromium >= 48
 * Internet explorer >= 10
 #### *not tested*
 * Edge (old version)
