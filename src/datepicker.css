@@ -4,6 +4,7 @@
   * Licensed under MIT 
   */
 #datepicker {
+  z-index: 9999;
   display: none;
   position: absolute;
   top: 0;
@@ -66,11 +67,11 @@
   width: 100%;
 }
 
-#datepicker .custom-select {
+#datepicker .custom-dp-select {
   font-size: 14px;
 }
 
-#datepicker .custom-select .select-value-container {
+#datepicker .custom-dp-select .select-value-container {
   height: 34px;
   line-height: 34px;
   padding-left: 8px;
@@ -79,38 +80,38 @@
   border: 2px solid lightblue;
 }
 
-#datepicker .custom-select .select-value {
+#datepicker .custom-dp-select .select-value {
   line-height: 30px;
 }
 
-#datepicker .custom-select .select-value-container:hover {
+#datepicker .custom-dp-select .select-value-container:hover {
   background-color: lightblue;
 }
 
-#datepicker .custom-select .select-arrow {
+#datepicker .custom-dp-select .select-arrow {
   margin-left: auto;
   margin-right: 8px;
-  transition: 300ms ease-in-out;
+  transition: 250ms ease-in-out;
 }
 
-#datepicker .custom-select .select-arrow svg {
+#datepicker .custom-dp-select .select-arrow svg {
   margin-bottom: 6px;
   fill: #333;
 }
 
-#datepicker .custom-select .select-option {
+#datepicker .custom-dp-select .select-option {
   font-size: small;
   height: 25px;
   padding-left: 10px;
   line-height: 25px;
 }
 
-#datepicker .custom-select .select-option:hover,
-#datepicker .custom-select .select-selected {
+#datepicker .custom-dp-select .select-option:hover,
+#datepicker .custom-dp-select .select-selected {
   background-color: lightblue;
 }
 
-#datepicker .custom-select .select-options {
+#datepicker .custom-dp-select .select-options {
   z-index: 9999;
   position: absolute;
   width: 150px;
@@ -118,7 +119,7 @@
   margin-top: 5px;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.25);
   border-radius: 5px;
-  transition: 300ms ease;
+  transition: 250ms ease;
   overflow-y: scroll;
 
   /*hiding Scrollbars*/
@@ -127,15 +128,15 @@
   scrollbar-width: none;
 }
 
-#datepicker .custom-select .select-options::-webkit-scrollbar {
+#datepicker .custom-dp-select .select-options::-webkit-scrollbar {
   display: none;
 }
 
-#datepicker .custom-select.close .select-options {
+#datepicker .closesel .select-options {
   height: 0;
 }
 
-#datepicker .custom-select.open .select-options {
+#datepicker .open .select-options {
   height: 250px;
 }
 

@@ -540,8 +540,8 @@ class Select {
     #build() {
         let thisObj = this;
         this.select = document.createElement("div");
-        this.select.classList.add("custom-select");
-        this.select.classList.add("close");
+        this.select.classList.add("custom-dp-select");
+        this.select.classList.add("closesel");
         this.select.classList.add(this.className);
 
         let selectValueContainer = document.createElement("div");
@@ -608,11 +608,11 @@ class Select {
 
     #openSelect() {
         this.#closeAllSelect(this.select);
-        if (this.select.classList.contains("close")) {
-            this.select.classList.replace("close", "open");
+        if (this.select.classList.contains("closesel")) {
+            this.select.classList.replace("closesel", "open");
             this.selectArrow.style.transform = "rotate(180deg)";
         } else {
-            this.select.classList.replace("open", "close");
+            this.select.classList.replace("open", "closesel");
             this.selectArrow.style.transform = "rotate(0)";
         }
     }
@@ -622,7 +622,7 @@ class Select {
         for (let i = 0; i < selects.length; i++) {
             if (selects[i] != select) {
                 selects[i].getElementsByClassName("select-arrow")[0].style.transform = "rotate(0)";
-                selects[i].classList.replace("open", "close");
+                selects[i].classList.replace("open", "closesel");
             }
         }
     }
