@@ -75,9 +75,6 @@ class Datepicker {
         calendarControl.appendChild(prevBtn);
 
         this.monthSel = document.createElement("select");
-        this.monthSel.classList.add("control");
-        this.monthSel.classList.add("select");
-        this.monthSel.classList.add("month");
         for (let i = 0; i <= 11; i++) {
             let opt = document.createElement('option');
             opt.value = i;
@@ -86,9 +83,9 @@ class Datepicker {
         }
         this.monthSel.tabIndex = -1;
         calendarControl.appendChild(this.monthSel);
+        let msel = new Select(this.monthSel, calendarControl, "month")
 
         this.yearSel = document.createElement("select");
-        this.yearSel.classList.add("control", "select", "year");
         for (let i = this.maxYear; i >= this.minYear; i--) {
             let opt = document.createElement('option');
             opt.value = i;
@@ -97,6 +94,7 @@ class Datepicker {
         }
         this.yearSel.tabIndex = -1;
         calendarControl.appendChild(this.yearSel);
+        let ysel = new Select(this.yearSel, calendarControl, "year")
 
         let nextBtn = document.createElement("div");
         nextBtn.classList.add("button");
@@ -145,6 +143,8 @@ class Datepicker {
         resetBtn.onclick = function () {
             thisObj.yearSel.value = thisObj.refYear;
             thisObj.monthSel.value = thisObj.refMonth;
+            thisObj.monthSel.dispatchEvent(new Event("change"));
+            thisObj.yearSel.dispatchEvent(new Event("change"));
             thisObj.selectedDay = null;
             if (thisObj.lastSelected != null) thisObj.lastSelected.classList.remove("selected");
             thisObj.inputReference.value = null;
@@ -157,8 +157,11 @@ class Datepicker {
                 if (thisObj.monthSel.value === "11") {
                     thisObj.monthSel.value = 0;
                     thisObj.yearSel.value++;
+                    thisObj.monthSel.dispatchEvent(new Event("change"));
+                    thisObj.yearSel.dispatchEvent(new Event("change"));
                 } else
                     thisObj.monthSel.value++;
+                thisObj.monthSel.dispatchEvent(new Event("change"));
             }
             thisObj.#updateCalendar();
         }
@@ -168,8 +171,11 @@ class Datepicker {
                 if (thisObj.monthSel.value === "0") {
                     thisObj.monthSel.value = 11;
                     thisObj.yearSel.value--;
+                    thisObj.monthSel.dispatchEvent(new Event("change"));
+                    thisObj.yearSel.dispatchEvent(new Event("change"));
                 } else
                     thisObj.monthSel.value--;
+                thisObj.monthSel.dispatchEvent(new Event("change"));
             }
             thisObj.#updateCalendar();
         }
@@ -198,10 +204,14 @@ class Datepicker {
             this.selectedDay = new Date(selectedValues[2], selectedValues[1] - 1, selectedValues[0]);
             this.yearSel.value = this.selectedDay.getFullYear();
             this.monthSel.value = this.selectedDay.getMonth();
+            this.monthSel.dispatchEvent(new Event("change"));
+            this.yearSel.dispatchEvent(new Event("change"));
         } else {
             this.selectedDay = null;
             this.yearSel.value = this.refYear;
             this.monthSel.value = this.refMonth;
+            this.monthSel.dispatchEvent(new Event("change"));
+            this.yearSel.dispatchEvent(new Event("change"));
         }
         this.#updateCalendar();
 
@@ -498,119 +508,129 @@ class Datepicker {
 }
 //#endregion
 
-// //#region SELECT
-// class Select {
-//     constructor(optionList) {
-//         if (Array.isArray(optionList)) {
-//             this.optKeys = optionList;
-//             this.optValues = optionList;
-//         } else if (typeof (optionList) == "object") {
-//             this.optKeys = Object.keys(optionList);
-//             this.optValues = Object.values(optionList);
-//         } else {
-//             throw "Invalid optionList";
-//         }
-//         this.select;
-//         this.options;
-//         this.selectedItem;
-//         this.initialized = false;
-//         this.itemsToDisplay = 5;
-//     }
+//#region SELECT
+class Select {
+    constructor(referenceSelect, parent, className) {
+        let thisObj = this;
+        if (referenceSelect.nodeName != "SELECT")
+            throw "HTMLElementError: only select elements are allowed";
+        this.referenceSelect = referenceSelect;
+        this.referenceSelect.addEventListener("change", function () {
+            thisObj.#updateFromReference();
+        });
+        // this.referenceSelect.onchange = function () {
+        //     thisObj.updateFromReference();
+        // }
+        this.className = className;
+        this.optionsNames = [];
+        this.optionsValues = [];
+        for (let i = 0; i < referenceSelect.options.length; i++) {
+            this.optionsNames.push(referenceSelect.options[i].label);
+            this.optionsValues.push(referenceSelect.options[i].value);
+        }
+        this.select;
+        this.selectValue;
+        this.selectArrow;
+        this.#build();
+        this.referenceSelect.style.display = "none";
+        this.#updateFromReference();
+        parent.appendChild(this.select);
+    }
 
-//     build() {
-//         let thisObj = this;
-//         this.select = document.createElement("div")
-//         this.select.classList.add("select");
+    #build() {
+        let thisObj = this;
+        this.select = document.createElement("div");
+        this.select.classList.add("custom-select");
+        this.select.classList.add("close");
+        this.select.classList.add(this.className);
 
-//         let current = document.createElement("div")
-//         current.classList.add("current");
-//         current.style.display = "flex";
-//         let text = document.createElement("span");
-//         this.svg = document.createElement("div");
-//         this.svg.classList.add("svg");
-//         this.svg.style.marginLeft = "auto";
-//         this.svg.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>`;
-//         current.appendChild(text);
-//         current.appendChild(this.svg);
+        let selectValueContainer = document.createElement("div");
+        selectValueContainer.classList.add("select-value-container")
+        selectValueContainer.style.display = "flex";
 
-//         this.select.appendChild(current);
+        this.selectValue = document.createElement("div");
+        this.selectValue.classList.add("select-value");
+        selectValueContainer.onclick = function (e) {
+            e.stopImmediatePropagation();
+            thisObj.#openSelect();
+        }
+        document.onclick = function (e) {
+            thisObj.#closeAllSelect(e);
+        }
+
+        this.selectArrow = document.createElement("div");
+        this.selectArrow.classList.add("select-arrow");
+        this.selectArrow.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>`;
+
+        selectValueContainer.appendChild(this.selectValue);
+        selectValueContainer.appendChild(this.selectArrow);
+
+        this.select.appendChild(selectValueContainer);
+
+        let selectOptions = document.createElement("div");
+        selectOptions.classList.add("select-options");
+
+        for (let i = 0; i < this.optionsValues.length; i++) {
+            let selectOption = document.createElement("div");
+            selectOption.classList.add("select-option");
+            selectOption.innerHTML = this.optionsNames[i];
+            selectOption.value = this.optionsValues[i];
+            selectOption.onclick = function () {
+                thisObj.#updateFromOption(this);
+            }
+            selectOptions.appendChild(selectOption);
+        }
+        this.select.appendChild(selectOptions);
+    }
+
+    #updateReferenceSelect() {
+        this.referenceSelect.value = this.selectValue.value;
+        this.referenceSelect.dispatchEvent(new Event("change"));
+    }
+
+    #updateFromOption(option) {
+        this.selectValue.innerHTML = option.innerHTML;
+        this.selectValue.value = option.value;
+        this.select.getElementsByClassName("select-selected")[0].classList.remove("select-selected");
+        option.classList.add("select-selected")
+        this.#updateReferenceSelect();
+    }
+
+    #updateFromReference() {
+        this.selectValue.innerHTML = this.referenceSelect.options[this.referenceSelect.selectedIndex].label;
+        this.selectValue.value = this.referenceSelect.value;
+        let selected = this.select.getElementsByClassName("select-selected")[0];
+        if (typeof (selected) != "undefined") {
+            selected.classList.remove("select-selected");
+        }
+        this.select.getElementsByClassName("select-option")[this.referenceSelect.selectedIndex].classList.add("select-selected")
+    }
+
+    #openSelect() {
+        this.#closeAllSelect(this.select);
+        if (this.select.classList.contains("close")) {
+            this.select.classList.replace("close", "open");
+            this.selectArrow.style.transform = "rotate(180deg)";
+        } else {
+            this.select.classList.replace("open", "close");
+            this.selectArrow.style.transform = "rotate(0)";
+        }
+    }
+
+    #closeAllSelect(select) {
+        let selects = document.getElementsByClassName("open");
+        for (let i = 0; i < selects.length; i++) {
+            if (selects[i] != select) {
+                selects[i].getElementsByClassName("select-arrow")[0].style.transform = "rotate(0)";
+                selects[i].classList.replace("open", "close");
+            }
+        }
+    }
+}
+
+//#endregion
 
 
-//         this.options = document.createElement("div")
-//         this.options.classList.add("options");
-//         this.options.value = "close";
-//         this.select.appendChild(this.options);
-
-//         for (let i = 0; i < this.optKeys.length; i++) {
-//             let option = document.createElement("div");
-//             option.classList.add("option");
-//             if (i == 0) {
-//                 option.classList.add("selected");
-//                 this.selectedItem = option;
-//             }
-//             option.innerHTML = this.optKeys[i];
-//             option.value = this.optValues[i];
-
-//             option.onclick = (e) => {
-//                 thisObj.selectedItem.classList.remove("selected");
-//                 e.target.classList.add("selected")
-//                 text.innerHTML = e.target.innerHTML;
-//                 thisObj.select.value = e.target.value;
-//                 thisObj.selectedItem = e.target;
-//             }
-//             this.options.appendChild(option);
-//         }
-//         text.innerHTML = this.selectedItem == undefined ? "" : this.selectedItem.innerHTML;
-
-//         current.onclick = (e) => {
-//             document.querySelectorAll(".options").forEach((opts) => {
-//                 if (opts != thisObj.options && opts.value != "close") {
-//                     thisObj.closeOptions(opts);
-//                 }
-//             });
-//             if (thisObj.options.value != "open") {
-//                 thisObj.showOptions(thisObj.options);
-//                 e.stopImmediatePropagation();
-//                 window.onclick = () => {
-//                     thisObj.closeOptions(thisObj.options);
-//                 }
-//             }
-//         }
-//     }
-
-//     showOptions() {
-//         this.options.value = "open";
-//         this.options.style.height = `${this.itemsToDisplay * 20}px`;
-//         this.options.style.overflow = "auto";
-//         this.svg.style.transform = "rotate(180deg)";
-//     }
-
-//     closeOptions(options) {
-//         options.value = "close";
-//         options.style.height = "0";
-//         options.style.overflow = "hidden";
-//         options.parentElement.querySelector(".svg").style.transform = "rotate(0deg)";
-//     }
-
-//     init(element) {
-//         if (!(element instanceof HTMLElement)) {
-//             throw "Cannot instanciate select inside this element";
-//         }
-//         this.initialized = true;
-//         this.build();
-//         element.appendChild(this.select);
-//     }
-
-//     setMaxItemsToDisplay(items) {
-//         if (this.initialized)
-//             throw "Cant set max items after initializiation";
-//         if (typeof (items) != "number" || items < 1)
-//             throw "Invalid value. Only positive numbers available";
-//         if (items > this.optKeys.length) items = this.optKeys.length;
-//         this.itemsToDisplay = items;
-//     }
-// }
-// //#endregion
 
 //#region COMMON FUNCTIONS
 /**Detect if specified year is leap or not
