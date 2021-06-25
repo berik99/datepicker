@@ -14,13 +14,13 @@ Additionally ths component allows you to simplify graphic design of your website
 ## Getting Started
     
 #### Installation 
-Download the latest <a href="https://github.com/berik99/datepicker/releases/">release</a> and reference in your project datepicker.min.js and datepicker.min.css or use one of the boilerplate inside the dist folder.
+Download the source from the latest <a href="https://github.com/berik99/datepicker/releases/">release</a>, unzip the archive and then you can reference in your html datepicker.min.js and datepicker.min.css files (they are inside the dist folder) or you can take one of the boilerplates inside the dist folder.
 
 
 #### Build 
-If you want to build your version download the source code you need NodeJS and NPM. if you don't have them, you can download from <a href="https://nodejs.org/en/">NodeJS official page</a>.
-Now open a terminal, move into project root and type `npm install` to download the necessary packages.
-Then type `npm run build` to transpile javascript code into IE10-compatible with <a href="https://babeljs.io/">babelJS</a>.
+If you want to build your version you need NodeJS and NPM. if you don't have them, you can download from <a href="https://nodejs.org/en/">NodeJS official page</a>.
+Now open a terminal, move into project root and type inside the console `npm install` to download the necessary packages.
+Then type `npm run build` to transpile javascript code with <a href="https://babeljs.io/">babelJS</a>.
 Afther that, the use of a minifier is recommended, but not strictly necessary.
 If you are using vscode you can use <a href="https://marketplace.visualstudio.com/items?itemName=olback.es6-css-minify">this</a> minifier extension.
 
