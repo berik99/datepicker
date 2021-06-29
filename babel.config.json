@@ -1,12 +1,11 @@
 {
     "presets": [
         [
-            "@babel/env",
+            "@babel/preset-env",
             {
-                "targets": {
-                    "ie": "10"
-                },
-                "useBuiltIns": "usage"
+                "targets": ">1% not dead",
+                "useBuiltIns": "usage",
+                "corejs": 3
             }
         ]
     ]

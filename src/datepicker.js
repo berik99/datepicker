@@ -1,8 +1,9 @@
 /*!
-  * datepicker-control v0.1
+  * datepicker v0.2.1
   * Copyright 2021 Erik Barale
   * Licensed under MIT 
   */
+
 //#region DATEPICKER
 /**
  * Create a new Datepicker element
