@@ -14,24 +14,13 @@ Additionally ths component allows you to simplify graphic design of your website
 ## Getting Started
     
 #### Installation 
-<<<<<<< HEAD
 Download the latest <a href="https://github.com/berik99/datepicker/releases/">release</a>, inside the dist folder there are javascript (datepicker.min.js) and css (datepicker.min.css) files to reference  in your project.
 There also four boilerplate for valilla html, bootstrap 3, 4 and 5;
 
 #### Build 
 To build  from source code you need NodeJS and NPM. if you don't have them, you can download them from <a href="https://nodejs.org/en/">NodeJS official page</a>.
 Now open a terminal, move into project root and type `npm install` to download the necessary packages.
-=======
-Download the source from the latest <a href="https://github.com/berik99/datepicker/releases/">release</a>, unzip the archive and then you can reference in your html datepicker.min.js and datepicker.min.css files (they are inside the dist folder) or you can take one of the boilerplates inside the dist folder.
-
-
-#### Build 
-If you want to build your version you need NodeJS and NPM. if you don't have them, you can download from <a href="https://nodejs.org/en/">NodeJS official page</a>.
-Now open a terminal, move into project root and type inside the console `npm install` to download the necessary packages.
->>>>>>> a2e992f5969a02617b65000004ca3805d3806d91
-Then type `npm run build` to transpile javascript code with <a href="https://babeljs.io/">babelJS</a>.
-Afther that, the use of a minifier is recommended, but not strictly necessary.
-If you are using vscode you can use <a href="https://marketplace.visualstudio.com/items?itemName=olback.es6-css-minify">this</a> minifier extension.
+Then type `npm run build` to transpile javascript code with <a href="https://babeljs.io/">babelJS</a> and minify all.
 
 ## Usage
 To use this component you need only to put in your html file head this css link 
