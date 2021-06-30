@@ -1,5 +1,5 @@
 /*!
-  * datepicker v0.2.1
+  * datepicker v0.2.2
   * Copyright 2021 Erik Barale
   * Licensed under MIT 
   */
@@ -612,9 +612,11 @@ class Select {
         if (this.select.classList.contains("closesel")) {
             this.select.classList.replace("closesel", "open");
             this.selectArrow.style.transform = "rotate(180deg)";
+            // this.select.getElementsByClassName("select-options")[0].style.border = "1px solid var(--border)";
         } else {
             this.select.classList.replace("open", "closesel");
             this.selectArrow.style.transform = "rotate(0)";
+            // this.select.getElementsByClassName("select-options")[0].style.border = "none";
         }
     }
 
@@ -624,6 +626,7 @@ class Select {
             if (selects[i] != select) {
                 selects[i].getElementsByClassName("select-arrow")[0].style.transform = "rotate(0)";
                 selects[i].classList.replace("open", "closesel");
+                // selects[i].getElementsByClassName("select-options")[0].style.border = "none";
             }
         }
     }

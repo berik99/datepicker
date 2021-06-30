@@ -1,4 +1,4 @@
-# Datepicker 
+# Datepicker
 
 Datepicker is a customizable web component which allows you to pick a date inside HTML forms
 
@@ -12,124 +12,140 @@ This project was born with the idea of providing a datepicker adaptable to diffe
 Additionally ths component allows you to simplify graphic design of your website by providing a datepicker with the same layout on each browser, differently from what happens with default one.
 
 ## Getting Started
-    
-#### Installation 
-Download the latest <a href="https://github.com/berik99/datepicker/releases/">release</a>, inside the dist folder there are javascript (datepicker.min.js) and css (datepicker.min.css) files to reference  in your project.
+
+#### Installation
+
+Download the latest <a href="https://github.com/berik99/datepicker/releases/">release</a>, inside the dist folder there are javascript (datepicker.min.js) and css (datepicker.min.css) files to reference in your project.
 There also four boilerplate for valilla html, bootstrap 3, 4 and 5;
 
-#### Build 
-To build  from source code you need NodeJS and NPM. if you don't have them, you can download them from <a href="https://nodejs.org/en/">NodeJS official page</a>.
+#### Build
+
+To build from source code you need NodeJS and NPM. if you don't have them, you can download them from <a href="https://nodejs.org/en/">NodeJS official page</a>.
 Now open a terminal, move into project root and type `npm install` to download the necessary packages.
 Then type `npm run build` to transpile javascript code with <a href="https://babeljs.io/">babelJS</a> and minify all.
 
 ## Usage
-To use this component you need only to put in your html file head this css link 
+
+To use this component you need only to put in your html file head this css link
+
 ```html
-    <link rel="stylesheet" href="datepicker.min.css">
+<link rel="stylesheet" href="datepicker.min.css" />
 ```
+
 and at the bottom of your body this javascript reference
+
 ```html
-    <script src="datepicker.min.js"></script>
-    <script>
-        var datepicker = new Datepicker();
-        //add here eventual additional setting
-        datepicker.init();
-    </script>
+<script src="datepicker.min.js"></script>
+<script>
+  var datepicker = new Datepicker();
+  //add here eventual additional setting
+  datepicker.init();
+</script>
 ```
-If you need use this simple basic boilerplate or choose the one you prefer inside the dist folder 
+
+If you want to use this datepicker also on Internet Explorer, you need to reference this polyfill before datepicker's js.
+
+```html
+<script src="https://polyfill.io/v3/polyfill.min.js?features=WeakSet%2CCustomEvent%2CDOMTokenList.prototype.replace"></script>
+```
+
+If you need use this simple basic boilerplate or choose the one you prefer inside the dist folder
+
 ```html
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- css reference -->
-    <link rel="stylesheet" href="datepicker.min.css">
+    <link rel="stylesheet" href="datepicker.min.css" />
     <title>datepicker</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <!-- input example -->
-    <input type="text" class="datepicker" id="testDatepicker">
+    <input type="text" class="datepicker" id="testDatepicker" />
     <!-- js reference -->
     <script src="datepicker.min.js"></script>
     <!-- datepicker initialization -->
     <script>
-        var datepicker = new Datepicker();
-        //add here eventual additional setting
-        datepicker.init();
+      var datepicker = new Datepicker();
+      //add here eventual additional setting
+      datepicker.init();
     </script>
-</body>
-
+  </body>
 </html>
 ```
+
 As you can see, is not enough to reference javascript and css files, but you also have to instanciate a `new Datepicker()` and run `init()` method on your instace. This allows you to create different instaces of datepicker with different settings.
+
 ```html
+//it will use datepicker1
+<input type="text" class="datepicker" id="testDatepicker" />
 
-    //it will use datepicker1
-    <input type="text" class="datepicker" id="testDatepicker">
+//it will use datepicker2
+<input type="text" class="datepicker2" id="testDatepicker" />
+...
+<script>
+  var datepicker1 = new Datepicker();
+  datepicker.init();
 
-    //it will use datepicker2 
-    <input type="text" class="datepicker2" id="testDatepicker"> 
-    ...
-    <script>
-        var datepicker1 = new Datepicker();
-        datepicker.init();
-
-        var datepicker2 = new Datepicker();
-        datepicker2.setCssClass("datepicker2")
-        datepicker.init();
-    </script>
+  var datepicker2 = new Datepicker();
+  datepicker2.setCssClass("datepicker2");
+  datepicker.init();
+</script>
 ```
 
 #### Settings available
-* `setCssClass()`
-As default datepicker will be applied only on html text inputs with css class "datepicker", but like shown above in the example you can choose the class which will trigger the datepicker.
-    ```javascript
-    var datepicker = new Datepicker();
-    datepicker.setCssClass("customClass"); 
-    //now only input with class="customClass" will be affected
-    datepicker.init();
-    ```
-* `setLanguage()`
+
+- `setCssClass()`
+  As default datepicker will be applied only on html text inputs with css class "datepicker", but like shown above in the example you can choose the class which will trigger the datepicker.
+  `javascript var datepicker = new Datepicker(); datepicker.setCssClass("customClass"); //now only input with class="customClass" will be affected datepicker.init(); `
+- `setLanguage()`
   This method allows you to set the language used inside the calendar, for the monts and the days name. it allows only a string parameter with a 2 digit language identifier (EN, IT, DE, ES, etc.). Default is English.
-    ```javascript
-    var datepicker = new Datepicker();
-    datepicker.setLanguage("IT"); //Set italian language
-    datepicker.init();
-    ```
-* `setMinYear() - setMaxYear() - setYearsRange()`
-  These methods you chan set minimum date, maximum date or the range of years which will be available inside the datepicker. 
+  ```javascript
+  var datepicker = new Datepicker();
+  datepicker.setLanguage("IT"); //Set italian language
+  datepicker.init();
+  ```
+- `setMinYear() - setMaxYear() - setYearsRange()`
+  These methods you chan set minimum date, maximum date or the range of years which will be available inside the datepicker.
   The default range is 1900 - current.
-    ```javascript
-    var datepicker = new Datepicker();
-    //you can set individually
-    datepicker.setMinYear(2005) //Set 2005 as minimum year
-    datepicker.setMaxYear(2018) //Set 2018 as maximum year
-    //or with a range
-    datepicker.setYearsRange(2000, 2010) //Set the renge between 2000 and 2010
-    datepicker.init();
-    ```
-* `setDefaultDate(month, year)`
+  ```javascript
+  var datepicker = new Datepicker();
+  //you can set individually
+  datepicker.setMinYear(2005); //Set 2005 as minimum year
+  datepicker.setMaxYear(2018); //Set 2018 as maximum year
+  //or with a range
+  datepicker.setYearsRange(2000, 2010); //Set the renge between 2000 and 2010
+  datepicker.init();
+  ```
+- `setDefaultDate(month, year)`
   This method allows you to set a month of the sepcified year to be displayed at datepicker opening. By default it will show current month of current year.
-    ```javascript
-    var datepicker = new Datepicker();
-    datepicker.setDefaultDate(11, 2009) //Set november 2009 as default date 
-    datepicker.init();
-    ```
+  ```javascript
+  var datepicker = new Datepicker();
+  datepicker.setDefaultDate(11, 2009); //Set november 2009 as default date
+  datepicker.init();
+  ```
 
 ## Supported browser
-#### *full support*
-* Chromium >= 62
-* Firefox >= 52.9
-* Safari >= 10
-#### *partial support*
-* Internet explorer >= 10
-#### *not tested*
-* Edge (old version)
-* Opera
+
+#### _full support_
+
+- Chromium >= 62
+- Firefox >= 52.9
+- Safari >= 10
+
+#### _partial support_
+
+- Internet explorer >= 10
+
+#### _not tested_
+
+- Edge (old version)
+- Opera
+
 ## License
 
 Copyright 2021 Erik Barale, Licensed under <a href="/dist/LICENSE">MIT License</a>

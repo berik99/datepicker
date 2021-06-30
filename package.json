@@ -1,10 +1,11 @@
 {
   "name": "datepicker",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Alternative customizable web component used to pick a date in a form input",
   "main": "example.html",
   "scripts": {
-    "build": "babel src/datepicker.js -d dist --presets=@babel/preset-env && css-minify -d src -o dist && uglifyjs dist/datepicker.js -o 'dist/datepicker.min.js' && rm dist/datepicker.js"
+    "build": "babel src/datepicker.js -d dist",
+    "build_": "babel src/datepicker.js -d dist && css-minify -d src -o dist && uglifyjs dist/datepicker.js -o 'dist/datepicker.min.js' && rm dist/datepicker.js"
   },
   "repository": {
     "type": "git",
@@ -28,10 +29,7 @@
     "@babel/cli": "^7.14.5",
     "@babel/core": "^7.14.6",
     "@babel/preset-env": "^7.14.5",
-    "css-minify": "^1.1.0",
-    "uglify-js": "^3.13.10"
-  },
-  "dependencies": {
-    "core-js": "^3.15.0"
+    "@node-minify/core": "^6.2.0",
+    "@node-minify/uglify-js": "^6.2.0"
   }
 }

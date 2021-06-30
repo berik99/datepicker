@@ -1,8 +1,28 @@
 /*!
-  * datepicker v0.2.1
+  * datepicker v0.2.2
   * Copyright 2021 Erik Barale
   * Licensed under MIT 
   */
+
+:root {
+  --background: #333;
+  --background-select: #777;
+  --hover: #666;
+  --active: #666;
+  --border: #333;
+  --divider: #d3d3d3;
+  --shadow: 0 0.5rem 1rem #333;
+  --font-normal: #f3f3f3;
+  --font-contrast: #333;
+  --font-inactive: #7e7e7e;
+  --active-cell: #999;
+  --inactive-cell: #555;
+  --selected-cell: #f5f5f5;
+  --hover-cell: opacity(70%);
+  --today-cell: #b4b4b4;
+  --transition-time: 250ms;
+}
+
 #datepicker {
   z-index: 9999;
   display: none;
@@ -10,19 +30,19 @@
   top: 0;
   left: 0;
   box-sizing: border-box;
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
-  background-color: white;
+  box-shadow: var(--shadow) !important;
+  background-color: var(--background);
   width: 300px;
   padding: 5px 15px 15px 15px;
   border-radius: 5px;
-  border: 1px solid gray;
+  border: 1px solid var(--border);
 }
 
 #datepicker * {
   user-select: none;
   font-family: Arial;
   box-sizing: border-box;
-  color: #333;
+  color: var(--font-normal);
 }
 
 #datepicker hr {
@@ -37,12 +57,13 @@
   overflow: visible;
   margin-bottom: 1rem;
   border: 0;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-top: 1px solid var(--divider);
 }
 
 #datepicker svg {
   overflow: hidden;
   vertical-align: middle;
+  fill: var(--font-normal);
 }
 
 #datepicker .button {
@@ -54,12 +75,16 @@
   border-radius: 5px;
 }
 
-#datepicker .button:hover {
-  background-color: lightblue !important;
+#datepicker .custom-dp-select .select-value-container:focus,
+#datepicker .custom-dp-select .select-value-container:hover,
+#datepicker .custom-dp-select .select-option:hover,
+#datepicker .button:not(.rcell):hover {
+  background-color: var(--hover) !important;
 }
 
-#datepicker .button:active {
-  background-color: lightblue !important;
+#datepicker .custom-dp-select .select-selected,
+#datepicker .button:not(.rcell):active {
+  background-color: var(--active) !important;
 }
 
 #datepicker > .input-control {
@@ -77,26 +102,21 @@
   padding-left: 8px;
   cursor: pointer;
   border-radius: 5px;
-  border: 2px solid lightblue;
 }
 
 #datepicker .custom-dp-select .select-value {
-  line-height: 30px;
-}
-
-#datepicker .custom-dp-select .select-value-container:hover {
-  background-color: lightblue;
+  line-height: 34px;
 }
 
 #datepicker .custom-dp-select .select-arrow {
   margin-left: auto;
   margin-right: 8px;
-  transition: 250ms ease-in-out;
+  transition: var(--transition-time) ease;
 }
 
 #datepicker .custom-dp-select .select-arrow svg {
-  margin-bottom: 6px;
-  fill: #333;
+  position: relative;
+  top: -1px;
 }
 
 #datepicker .custom-dp-select .select-option {
@@ -106,20 +126,15 @@
   line-height: 25px;
 }
 
-#datepicker .custom-dp-select .select-option:hover,
-#datepicker .custom-dp-select .select-selected {
-  background-color: lightblue;
-}
-
 #datepicker .custom-dp-select .select-options {
   z-index: 9999;
   position: absolute;
   width: 150px;
-  background-color: white;
+  background-color: var(--background-select);
   margin-top: 5px;
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.25);
+  box-shadow: var(--shadow);
   border-radius: 5px;
-  transition: 250ms ease;
+  transition: var(--transition-time) ease-in-out;
   overflow-y: scroll;
 
   /*hiding Scrollbars*/
@@ -172,41 +187,42 @@
 
 #datepicker > .calendar > .cal-row > .cell {
   margin: 2px 0;
-  background-color: lightskyblue;
+  background-color: var(--active-cell);
 }
 
 #datepicker > .calendar > .cal-row > .cell.today {
   font-weight: bold;
-  color: white;
-  background-color: rgb(30, 143, 172);
+  color: var(--font-contrast);
+  background-color: var(--today-cell);
 }
 
 #datepicker > .calendar > .header > .cell {
   font-weight: bold;
   font-size: small;
-  background-color: white;
+  background-color: var(--background);
 }
 
 #datepicker > .calendar > .header > .cell:active,
 #datepicker > .calendar > .header > .cell:hover {
   text-decoration: underline;
-  background-color: white !important;
+  background-color: var(--background) !important;
+}
+
+#datepicker > .calendar .rcell:hover {
+  filter: var(--hover-cell);
 }
 
 #datepicker .unavailable,
 #datepicker .unavailable:hover,
 #datepicker .unavailable:active {
-  background-color: lightgray !important;
-  filter: opacity(80%);
+  background-color: var(--inactive-cell) !important;
+  color: var(--font-inactive);
+  filter: none !important;
   cursor: default;
 }
 
 #datepicker .selected {
-  background-color: blueviolet !important;
-  color: #fff !important;
+  background-color: var(--selected-cell) !important;
+  color: var(--font-contrast) !important;
   font-weight: bold;
-}
-
-#datepicker .selected:hover {
-  background-color: #892be299 !important;
 }
