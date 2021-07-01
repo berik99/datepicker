@@ -1,13 +1,24 @@
 ## TODO List:
 
 #### Important
-- Mobile view <input type="checkbox">
-- Themes <input type="checkbox">
-- Date format <input type="checkbox">
-- display on center of screen<input type="checkbox">
-- calendar animations<input type="checkbox">
+
+- Mobile support
+- Show on center of screen
+- Calendar animations
+- Chromium < 62 support
+- IE 10 click-out disappearing
 
 #### Secondary
-- old chromium support <input type="checkbox">
-- Title <input type="checkbox">
-- manual show function <input type="checkbox">
+
+- Leave focus on select when is open
+- add tooltips to buttons
+- Calendar title
+- Manual show function
+- More themes
+- More date formats
+- More languages
+
+#### Ideas
+
+- Theme builder
+- Theme validator

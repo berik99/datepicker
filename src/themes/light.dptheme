@@ -1,0 +1,18 @@
+:root {
+  --background: #fff;
+  --background-select: #fff;
+  --hover: #add8e6;
+  --active: #add8e6;
+  --border: #add8e6;
+  --divider: #d3d3d3;
+  --shadow: #33333360;
+  --font-normal: #333;
+  --font-contrast: #fff;
+  --font-inactive: #7e7e7e;
+  --active-cell: #87cefa;
+  --inactive-cell: #e4e4e4;
+  --selected-cell: #6610f2;
+  --hover-cell: opacity(70%);
+  --today-cell: #007bff;
+  --transition-time: 250ms;
+}

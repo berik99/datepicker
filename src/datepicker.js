@@ -1,9 +1,3 @@
-/*!
-  * datepicker v0.2.2
-  * Copyright 2021 Erik Barale
-  * Licensed under MIT 
-  */
-
 //#region DATEPICKER
 /**
  * Create a new Datepicker element
@@ -26,7 +20,7 @@ class Datepicker {
         this.inputReference;
         this.minYear = 1900;
         this.maxYear = new Date().getFullYear();
-        this.dateSeparator = "/";
+        this.format = "dd/mm/yyyy";
         this.datepicker;
 
         //Settings booleans
@@ -201,8 +195,8 @@ class Datepicker {
         window.onresize = function () { thisObj.#setPosition(); }
         window.onclick = function (ev) { thisObj.#autoCloseDatapicker(ev); }
         if (this.inputReference.value != "") {
-            let selectedValues = input.value.split(this.dateSeparator);
-            this.selectedDay = new Date(selectedValues[2], selectedValues[1] - 1, selectedValues[0]);
+
+            this.selectedDay = this.#parseDateFormat(input.value);
             this.yearSel.value = this.selectedDay.getFullYear();
             this.monthSel.value = this.selectedDay.getMonth();
             this.monthSel.dispatchEvent(new Event("change"));
@@ -265,7 +259,7 @@ class Datepicker {
             monthBefore--;
         }
 
-        //days of selectd month
+        //days of selected month
         let iteraions = isLeap(this.yearSel.value) ? dayPerMont[this.monthSel.value] + 1 : dayPerMont[this.monthSel.value];
         for (let i = 1; i <= iteraions; i++) {
             cells[j].classList.remove("unavailable")
@@ -275,8 +269,7 @@ class Datepicker {
                     if (thisObj.lastSelected != null)
                         thisObj.lastSelected.classList.remove("selected");
                     this.classList.add("selected");
-                    let selectedValues = this.value.split(this.dateSeparator);
-                    thisObj.selectedDay = new Date(selectedValues[2], selectedValues[1] - 1, selectedValues[0]);
+                    thisObj.selectedDay = thisObj.#parseDateFormat(this.value);
                     thisObj.inputReference.value = this.value;
                     thisObj.lastSelected = this;
                     thisObj.#hide();
@@ -285,11 +278,11 @@ class Datepicker {
             cells[j].innerHTML = i;
             let month = parseInt(this.monthSel.value) + 1;
             let day = i;
-            if (month < 10) month = `0${month}`;
-            if (day < 10) day = `0${day}`;
-            cells[j].value = `${day}${this.dateSeparator}${month}${this.dateSeparator}${this.yearSel.value}`;
+
+            cells[j].value = this.#applyFormat(day, month, this.yearSel.value);
             j++;
         }
+
         //Set today
         let today = new Date();
         if (this.monthSel.value == today.getMonth() && this.yearSel.value == today.getFullYear()) {
@@ -331,6 +324,31 @@ class Datepicker {
                 }
             }
         }
+    }
+
+    /**apply the format on the specified date
+     * @param {number} day
+     * @param {number} month
+     * @param {number} year
+     * @return {string} date formatted in preset format
+     * @private You should't use this method outside the class
+     */
+    #applyFormat(day, month, year) {
+        if (month < 10) month = `0${month}`;
+        if (day < 10) day = `0${day}`;
+        return this.format.replace("dd", day).replace("mm", month).replace("yyyy", year);
+    }
+
+
+    /**Parse a formatted date to a js Date
+     * @private You should't use this method outside the class
+     */
+    #parseDateFormat(formattedDate) {
+        let separator = this.format.replace("dd", "").replace("mm", "").replace("yyyy", "")[0];
+        let positions = this.format.split(separator);
+        let dateValues = formattedDate.split(separator);
+        let parsedDate = new Date(parseInt(dateValues[positions.indexOf("yyyy")]), parseInt(dateValues[positions.indexOf("mm")]) - 1, parseInt(dateValues[positions.indexOf("dd")]));
+        return parsedDate;
     }
     //#endregion
 
@@ -502,7 +520,25 @@ class Datepicker {
      * @public
      */
     setCssClass(cssClass) {
+        if (this.initialized)
+            throw "Can't apply settings after initialization";
+        if (typeof (cssClass) != "string")
+            throw "ERROR: cssClass must be a string";
         this.classToApply = cssClass;
+    }
+
+    /**Sets the date format to display inside the form
+     * @param {string} cssClass - The css class  
+     * @public
+     */
+    setDateFormat(format) {
+        if (this.initialized)
+            throw "Can't apply settings after initialization";
+        if (typeof (format) != "string")
+            throw "ERROR: date format must be a string";
+        if (format.length != 10 || !format.includes("dd") || !format.includes("mm") || !format.includes("yyyy"))
+            throw "ERROR: Invalid date format"
+        this.format = format;
     }
 
     //#endregion
@@ -612,11 +648,9 @@ class Select {
         if (this.select.classList.contains("closesel")) {
             this.select.classList.replace("closesel", "open");
             this.selectArrow.style.transform = "rotate(180deg)";
-            // this.select.getElementsByClassName("select-options")[0].style.border = "1px solid var(--border)";
         } else {
             this.select.classList.replace("open", "closesel");
             this.selectArrow.style.transform = "rotate(0)";
-            // this.select.getElementsByClassName("select-options")[0].style.border = "none";
         }
     }
 
@@ -626,7 +660,6 @@ class Select {
             if (selects[i] != select) {
                 selects[i].getElementsByClassName("select-arrow")[0].style.transform = "rotate(0)";
                 selects[i].classList.replace("open", "closesel");
-                // selects[i].getElementsByClassName("select-options")[0].style.border = "none";
             }
         }
     }

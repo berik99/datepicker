@@ -1,11 +1,11 @@
 {
   "name": "datepicker",
-  "version": "0.2.2",
+  "version": "0.2.5",
   "description": "Alternative customizable web component used to pick a date in a form input",
   "main": "example.html",
   "scripts": {
-    "build": "babel src/datepicker.js -d dist",
-    "build_": "babel src/datepicker.js -d dist && css-minify -d src -o dist && uglifyjs dist/datepicker.js -o 'dist/datepicker.min.js' && rm dist/datepicker.js"
+    "build": "node ./src/build.js",
+    "test": "http-server -o /dist/boilerplates/standard.html"
   },
   "repository": {
     "type": "git",
@@ -19,7 +19,11 @@
     "custom-element",
     "html5"
   ],
-  "author": "Erik Barale",
+  "author": {
+    "name": "Erik Barale",
+    "email": "ebarale.develop@gmail.com",
+    "url": "https://github.com/berik99"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/berik99/datepicker/issues"
@@ -29,7 +33,9 @@
     "@babel/cli": "^7.14.5",
     "@babel/core": "^7.14.6",
     "@babel/preset-env": "^7.14.5",
+    "@node-minify/clean-css": "^6.2.0",
     "@node-minify/core": "^6.2.0",
-    "@node-minify/uglify-js": "^6.2.0"
+    "@node-minify/terser": "^6.2.0",
+    "http-server": "^0.12.3"
   }
 }

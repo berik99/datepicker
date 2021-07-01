@@ -2,26 +2,32 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../datepicker-dark.min.css">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Datepicker css theme -->
+    <link rel="stylesheet" href="../datepicker-light.min.css" />
     <title>Standard - Datepicker</title>
 </head>
 
 <body>
     <form>
         <label for="customDatepicker">Custom datepicker</label>
-        <input type="text" class="datepicker" id="customDatepicker">
+        <input type="text" class="datepicker" id="customDatepicker" />
         <label for="defaultDatepicker">Browser default datepicker</label>
-        <input type="date" id="defaultDatepicker">
+        <input type="date" id="defaultDatepicker" />
     </form>
-
+    <!-- Datepicker js -->
     <script src="../datepicker.min.js"></script>
+    <!-- Datepicker initialization -->
     <script>
-        var htmlDatepicker = new Datepicker();
-        htmlDatepicker.init();
+        var datepicker = new Datepicker();
+        //add here your additional setting
+        datepicker.init();
     </script>
+</body>
+
+</html>
 </body>
 
 </html>

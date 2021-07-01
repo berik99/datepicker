@@ -15,70 +15,81 @@ Additionally ths component allows you to simplify graphic design of your website
 
 #### Installation
 
-Download the latest <a href="https://github.com/berik99/datepicker/releases/">release</a>, inside the dist folder there are javascript (datepicker.min.js) and css (datepicker.min.css) files to reference in your project.
-There also four boilerplate for valilla html, bootstrap 3, 4 and 5;
+Download the latest <a href="https://github.com/berik99/datepicker/releases/">release</a>, inside the dist folder there are javascript (datepicker.min.js) and css themes (datepicker-_themeName_.min.css) files to reference in your project.
+There are also four boilerplate for valilla html, bootstrap 3, b-4 and b-5;
 
 #### Build
 
 To build from source code you need NodeJS and NPM. if you don't have them, you can download them from <a href="https://nodejs.org/en/">NodeJS official page</a>.
 Now open a terminal, move into project root and type `npm install` to download the necessary packages.
-Then type `npm run build` to transpile javascript code with <a href="https://babeljs.io/">babelJS</a> and minify all.
+To build necessary files, type `npm run build`. This command will transpile javascript code with <a href="https://babeljs.io/">babelJS</a>, build css theme files and minify all.
+To test datepicker in the browser run `npm test`.
 
 ## Usage
 
-To use this component you need only to put in your html file head this css link
+To use this component you need to insert the reference to the desired CSS theme in the head of HTML
 
 ```html
-<link rel="stylesheet" href="datepicker.min.css" />
+<link rel="stylesheet" href="datepicker-light.min.css" />
 ```
 
-and at the bottom of your body this javascript reference
+and the javascript reference at the end of body.
 
 ```html
 <script src="datepicker.min.js"></script>
 <script>
   var datepicker = new Datepicker();
-  //add here eventual additional setting
+  //add here your additional setting
   datepicker.init();
 </script>
 ```
 
-If you want to use this datepicker also on Internet Explorer, you need to reference this polyfill before datepicker's js.
+If you want to use this datepicker also on Internet Explorer, you need to reference this polyfill just before datepicker's js. Thanks to: <a href="https://polyfill.io/v3/">Polyfill.io</a>
 
 ```html
 <script src="https://polyfill.io/v3/polyfill.min.js?features=WeakSet%2CCustomEvent%2CDOMTokenList.prototype.replace"></script>
 ```
 
-If you need use this simple basic boilerplate or choose the one you prefer inside the dist folder
+You can use this boilerplate or choose the one you prefer inside the dist folder
 
 ```html
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- css reference -->
-    <link rel="stylesheet" href="datepicker.min.css" />
-    <title>datepicker</title>
-  </head>
+    <!-- Datepicker css theme -->
+    <link rel="stylesheet" href="../datepicker-light.min.css" />
+    <title>Standard - Datepicker</title>
+</head>
 
-  <body>
-    <!-- input example -->
-    <input type="text" class="datepicker" id="testDatepicker" />
-    <!-- js reference -->
-    <script src="datepicker.min.js"></script>
-    <!-- datepicker initialization -->
+<body>
+    <form>
+        <label for="customDatepicker">Custom datepicker</label>
+        <input type="text" class="datepicker" id="customDatepicker" />
+        <label for="defaultDatepicker">Browser default datepicker</label>
+        <input type="date" id="defaultDatepicker" />
+    </form>
+    <!-- Datepicker js -->
+    <script src="../datepicker.min.js"></script>
+    <!-- Datepicker initialization -->
     <script>
-      var datepicker = new Datepicker();
-      //add here eventual additional setting
-      datepicker.init();
+        var datepicker = new Datepicker();
+        //add here your additional setting
+        datepicker.init();
     </script>
-  </body>
+</body>
+
+</html>
+</body>
+
 </html>
 ```
 
-As you can see, is not enough to reference javascript and css files, but you also have to instanciate a `new Datepicker()` and run `init()` method on your instace. This allows you to create different instaces of datepicker with different settings.
+To make datepicker working, is not enough to reference javascript and css files, but is also required to instanciate a `new Datepicker()` and run `init()` method on the instance. This allows you to create different instances of datepicker with different settings.
+By default datepicker will be applied only on html text inputs with css class "datepicker"
 
 ```html
 //it will use datepicker1
@@ -100,8 +111,12 @@ As you can see, is not enough to reference javascript and css files, but you als
 #### Settings available
 
 - `setCssClass()`
-  As default datepicker will be applied only on html text inputs with css class "datepicker", but like shown above in the example you can choose the class which will trigger the datepicker.
-  `javascript var datepicker = new Datepicker(); datepicker.setCssClass("customClass"); //now only input with class="customClass" will be affected datepicker.init(); `
+  This method allows you to set another CSS class to which dateppicker will be applied.
+  ```javascript
+  var datepicker = new Datepicker();
+  datepicker.setCssClass("customClass"); //now only input with class="customClass" will be affected
+  datepicker.init();
+  ```
 - `setLanguage()`
   This method allows you to set the language used inside the calendar, for the monts and the days name. it allows only a string parameter with a 2 digit language identifier (EN, IT, DE, ES, etc.). Default is English.
   ```javascript
@@ -125,26 +140,48 @@ As you can see, is not enough to reference javascript and css files, but you als
   This method allows you to set a month of the sepcified year to be displayed at datepicker opening. By default it will show current month of current year.
   ```javascript
   var datepicker = new Datepicker();
-  datepicker.setDefaultDate(11, 2009); //Set november 2009 as default date
+  datepicker.setDefaultDate(11, 2009); //Set november 2009 By default date
+  datepicker.init();
+  ```
+- `setDefaultDate(month, year)`
+  This method set the format used to show the date inside the form.
+  Use `dd` as day placeholder, `mm` for months and `yyyy` for years.
+  Set the one-char divider as you prefer.
+  By default date format is `dd/mm/yyyy`.
+  ```javascript
+  var datepicker = new Datepicker();
+  datepicker.setDateFormat("yyyy-mm-dd"); //E.G. 1st january 1970 will displayed as 1970-01-01
   datepicker.init();
   ```
 
 ## Supported browser
 
-#### _full support_
+#### _tested support_
 
 - Chromium >= 62
 - Firefox >= 52.9
 - Safari >= 10
+- Edge (chromium)
 
-#### _partial support_
+#### _partial support: work in progress_
 
+- Chromium < 62
+  - datepicker disappear a few moments after its appearance
 - Internet explorer >= 10
+  - datepicker will not close when click outside; only close button will work
 
 #### _not tested_
 
 - Edge (old version)
 - Opera
+- Safari < 10
+
+## Exteral resource
+
+<a href="https://babeljs.io/">BabelJS</a>
+<a href="https://node-minify.2clics.net/">node-minify</a>
+<a href="https://polyfill.io/v3/">Polyfill.io</a>
+<a href="https://icons.getbootstrap.com/">bootstrap-icons</a>
 
 ## License
 
