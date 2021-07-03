@@ -1,9 +1,0 @@
-### Datepicker v0.2.5-alpha
-### Changelog:
-- Replaced default month and year select with custom ones
-- Added more boilerplates for vanilla HTML, bootstrap 3, b-4 and b-5;
-- Added themes
-- improved bootstrap compatibility
-- Improved old browser support
-#### ATTENTION
-*This is an alpha version, it may contains bug and/or imperfection. If you find one of them, please open an issue and it will be resolved as soon as possible*
