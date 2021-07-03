@@ -1,4 +1,5 @@
 :root {
+  --font-family: Arial;
   --background: #fff;
   --background-select: #fff;
   --hover: #add8e6;

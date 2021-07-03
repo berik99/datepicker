@@ -2,7 +2,7 @@
 /**
  * Create a new Datepicker element
  * @class
- * @classdesc Represents a datepicker element 
+ * @classdesc Represents a datepicker element
  */
 class Datepicker {
     constructor() {
@@ -132,7 +132,7 @@ class Datepicker {
             }
             calendar.appendChild(calRowRw);
         }
-        this.datepicker.appendChild(calendar);
+        this.datepicker.appendChild(calendar);;
 
         //#region BUTTON ACTIONS
         resetBtn.onclick = function () {
@@ -152,13 +152,12 @@ class Datepicker {
                 if (thisObj.monthSel.value === "11") {
                     thisObj.monthSel.value = 0;
                     thisObj.yearSel.value++;
-                    thisObj.monthSel.dispatchEvent(new Event("change"));
                     thisObj.yearSel.dispatchEvent(new Event("change"));
                 } else
                     thisObj.monthSel.value++;
                 thisObj.monthSel.dispatchEvent(new Event("change"));
             }
-            thisObj.#updateCalendar();
+            // thisObj.#updateCalendar();
         }
 
         prevBtn.onclick = function () {
@@ -166,17 +165,22 @@ class Datepicker {
                 if (thisObj.monthSel.value === "0") {
                     thisObj.monthSel.value = 11;
                     thisObj.yearSel.value--;
-                    thisObj.monthSel.dispatchEvent(new Event("change"));
                     thisObj.yearSel.dispatchEvent(new Event("change"));
                 } else
                     thisObj.monthSel.value--;
                 thisObj.monthSel.dispatchEvent(new Event("change"));
             }
-            thisObj.#updateCalendar();
+            // thisObj.#updateCalendar();
         }
 
         this.monthSel.onchange = function () { thisObj.#updateCalendar(); }
         this.yearSel.onchange = function () { thisObj.#updateCalendar(); }
+
+        this.datepicker.addEventListener("change", () => {
+            calendar.classList.remove("animate");
+            console.log("ciao");
+            calendar.classList.add("animate");
+        });
         //#endregion
     }
 
@@ -199,16 +203,15 @@ class Datepicker {
             this.selectedDay = this.#parseDateFormat(input.value);
             this.yearSel.value = this.selectedDay.getFullYear();
             this.monthSel.value = this.selectedDay.getMonth();
-            this.monthSel.dispatchEvent(new Event("change"));
+            // this.monthSel.dispatchEvent(new Event("change"));
             this.yearSel.dispatchEvent(new Event("change"));
         } else {
             this.selectedDay = null;
             this.yearSel.value = this.refYear;
             this.monthSel.value = this.refMonth;
-            this.monthSel.dispatchEvent(new Event("change"));
+            // this.monthSel.dispatchEvent(new Event("change"));
             this.yearSel.dispatchEvent(new Event("change"));
         }
-        this.#updateCalendar();
 
         this.#setPosition();
         this.datepicker.style.display = "block";
@@ -235,7 +238,6 @@ class Datepicker {
      */
     #updateCalendar() {
         const dayPerMont = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-
         let cells = this.datepicker.getElementsByClassName("rcell");
         let firstOfMonth = new Date(this.yearSel.value, this.monthSel.value, 1).getDay();
 
@@ -299,6 +301,7 @@ class Datepicker {
             cells[j].innerHTML = i;
             i++;
         }
+        this.datepicker.dispatchEvent(new Event("change"));
     }
 
     /**close the datepicker only if click is outside the control or the input
@@ -516,7 +519,7 @@ class Datepicker {
     }
 
     /**Sets the cssClass to which will be applied this datepicker instance
-     * @param {string} cssClass - The css class  
+     * @param {string} cssClass - The css class
      * @public
      */
     setCssClass(cssClass) {
@@ -528,7 +531,7 @@ class Datepicker {
     }
 
     /**Sets the date format to display inside the form
-     * @param {string} cssClass - The css class  
+     * @param {string} cssClass - The css class
      * @public
      */
     setDateFormat(format) {

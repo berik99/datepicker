@@ -2,3 +2,5 @@ node_modules/
 .vscode/
 dist/datepicker.js
 launch.json
+v0.2.5desc.txt
+animation.md
